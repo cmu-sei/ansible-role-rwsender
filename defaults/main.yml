@@ -1,0 +1,77 @@
+---
+#Copyright 2020 Carnegie Mellon University.
+#NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+#Released under a MIT (SEI)-style license, please see license.txt or contact permission@sei.cmu.edu for full terms.
+#[DISTRIBUTION STATEMENT A] This material has been approved for public release and unlimited distribution.  Please see Copyright notice for non-US Government use and distribution.
+#CERT® is registered in the U.S. Patent and Trademark Office by Carnegie Mellon University.
+#This Software includes and/or makes use of the following Third-Party Software subject to its own license:
+#1. ansible (https://github.com/ansible/ansible/tree/devel/licenses) Copyright 2019 Red Hat, Inc.
+#2. molecule (https://github.com/ansible-community/molecule/blob/master/LICENSE) Copyright 2018 Red Hat, Inc.
+#3. testinfra (https://github.com/philpep/testinfra/blob/master/LICENSE) Copyright 2020 Philippe Pepiot.
+#DM20-0508
+# defaults file for rwsender
+silk_packing_tools_loc: "/usr/local/sbin"
+silk_tls_support: False
+
+rwsender_myname: "rwsender"
+rwsender_conf_template: "rwsender.conf.j2"
+rwsender_conf_file_loc: "/usr/local/etc"
+rwsender_conf_file_path: "{{ rwsender_conf_file_loc }}/{{ rwsender_myname }}.conf"
+rwsender_init_template: "rwsender.j2"
+rwsender_init_file_path: "/etc/init.d/{{ rwsender_myname }}"
+
+rwsender_service: True
+rwsender_statedirectory: "/usr/local/var/lib/rwsender"
+rwsender_create_directories: "no"
+rwsender_bin_dir: "{{ silk_packing_tools_loc }}"
+rwsender_incoming_dir: "{{ rwsender_statedirectory }}/incoming"
+rwsender_processing_dir: "{{ rwsender_statedirectory }}/processing"
+rwsender_error_dir: "{{ rwsender_statedirectory }}/error"
+rwsender_mode: "client"
+rwsender_id: "receiver-1"
+rwsender_port: ""
+
+rwsender_receiver_servers: ""
+# Example RECEIVER_SERVERS:
+#    rwsender_receiver_servers: |
+#        receiver-1  machine.test.org:9999
+#        receiver-2  192.168.100.10:9998     ^[^_]*_netflow_
+#        receiver-3  [2001:db8:c0:a8::64:a]:9997
+rwsender_receiver_clients: ""
+# Example SENDER_CLIENTS:
+#    rwsender_sender_clients: |
+#        receiver-1
+#        receiver-2                          ^[^_]*_netflow_
+#        receiver-3
+
+rwsender_priorities: ""
+# Example PRIORITIES:
+#    rwsender_priorities: |
+#        100  ^S[0-3]_
+#         25  ^S[7-9]_
+rwsender_local_dirs: ""
+# Example LOCAL_DIRS:
+#    rwsender_local_dirs: |
+#        /var/rwsender/local-dir1
+#        /var/rwsender/local-dir2   ^S[7-9]_
+rwsender_local_ident: "auto-ident"
+rwsender_local_copies: "link"
+rwsender_send_attempts: "5"
+rwsender_polling_interval: "15"
+
+rwsender_tls_ca: ""
+rwsender_tls_pkcs: ""
+rwsender_tls_key: ""
+rwsender_tls_cert: ""
+rwsender_tls_crl: ""
+rwsender_tls_priority: ""
+rwsender_tls_security: ""
+rwsender_tls_debug_level: ""
+
+rwsender_log_type: "syslog"
+rwsender_log_level: "info"
+rwsender_log_dir: "{{ rwsender_statedirectory }}/log"
+rwsender_pid_dir: "{{ rwsender_log_dir }}"
+
+rwsender_user: "root"
+rwsender_extra_options: ""
